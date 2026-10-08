@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petals Cafe & Bistro — A Little Place to Slow Down</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-cream: #F7F3EA;
+            --bg-card: #FFFFFF;
+            --bg-sage: #818E6C;
+            --olive-deep: #59604A;
+            --olive-dark: #3F4434;
+            --espresso: #29251F;
+            --beige-muted: #E6E0D4;
+            --beige-light: #EFECE6;
+            --text-dark: #29251F;
+            --text-muted: #6B665E;
+            --text-light: #FAF7F2;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Typography Helper Classes */
+        .serif-title {
+            font-family: var(--font-serif);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--olive-deep);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(247, 243, 234, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            text-align: center;
+        }
+
+        .brand-logo .logo-main {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: 600;
+            line-height: 1;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled .brand-logo .logo-main {
+            color: var(--espresso);
+        }
+
+        .brand-logo .logo-sub {
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            color: rgba(250, 247, 242, 0.8);
+            text-transform: uppercase;
+            margin-top: 2px;
+            display: block;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled .brand-logo .logo-sub {
+            color: var(--olive-deep);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--espresso);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--olive-deep);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-nav {
+            padding: 0.6rem 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            font-size: 0.8rem !important;
+            transition: var(--transition-smooth) !important;
+        }
+
+        .navbar.scrolled .btn-nav {
+            border-color: var(--olive-deep);
+            color: var(--olive-deep) !important;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--text-light);
+            color: var(--espresso) !important;
+        }
+
+        .navbar.scrolled .btn-nav:hover {
+            background-color: var(--olive-deep);
+            color: #FFFFFF !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(41, 37, 31, 0.55) 0%, rgba(41, 37, 31, 0.65) 100%), 
+                        url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.05);
+            animation: heroZoom 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes heroZoom {
+            from { transform: scale(1.05); }
+            to { transform: scale(1.15); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 1.5rem;
+        }
+
+        .hero-title-sub {
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .hero-title-main {
+            font-family: var(--font-serif);
+            font-size: clamp(3.2rem, 8vw, 5.5rem);
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--bg-sage);
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--olive-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        /* Brand Story Section */
+        .story {
+            padding: 7rem 0;
+            text-align: center;
+        }
+
+        .story-header {
+            max-width: 700px;
+            margin: 0 auto 4.5rem;
+        }
+
+        .story-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--espresso);
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .story-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .story-card {
+            background-color: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--beige-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .story-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+            border-color: var(--bg-sage);
+        }
+
+        .story-card-icon {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            color: var(--bg-sage);
+        }
+
+        .story-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--espresso);
+            margin-bottom: 0.8rem;
+        }
+
+        .story-card-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Signatures / Highlights Section */
+        .signatures {
+            padding: 6rem 0;
+            background-color: var(--beige-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--espresso);
+        }
+
+        .sig-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .sig-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sig-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .sig-img-wrap {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sig-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .sig-card:hover .sig-img {
+            transform: scale(1.08);
+        }
+
+        .sig-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            color: var(--olive-deep);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.9rem;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+
+        .sig-body {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .sig-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.6rem;
+        }
+
+        .sig-name {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: var(--espresso);
+        }
+
+        .sig-price {
+            font-weight: 700;
+            color: var(--olive-deep);
+            font-size: 1.1rem;
+        }
+
+        .sig-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 7rem 0;
+            background-color: var(--bg-sage);
+            color: var(--text-light);
+        }
+
+        .menu-section .section-tag {
+            color: rgba(250, 247, 242, 0.8);
+        }
+
+        .menu-section .section-header-title {
+            color: var(--text-light);
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-light);
+            padding: 0.7rem 1.6rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background-color: var(--text-light);
+            color: var(--olive-dark);
+            border-color: var(--text-light);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 550px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-item {
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+            padding-bottom: 1.2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .menu-item:hover {
+            border-bottom-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.4rem;
+        }
+
+        .menu-item-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .menu-item-price {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #FAF7F2;
+        }
+
+        .menu-item-desc {
+            font-size: 0.88rem;
+            opacity: 0.85;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .menu-footer {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Gallery / The Space */
+        .gallery-section {
+            padding: 7rem 0;
+            background-color: var(--bg-cream);
+        }
+
+        .gallery-masonry {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 850px) {
+            .gallery-masonry {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            .gallery-masonry {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 320px;
+        }
+
+        .gallery-item.tall {
+            height: 420px;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 850px) {
+            .gallery-item.wide {
+                grid-column: span 1;
+            }
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.06);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(41, 37, 31, 0.6) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-label {
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Google Reviews Section */
+        .reviews-section {
+            padding: 6rem 0;
+            background-color: var(--beige-light);
+            text-align: center;
+        }
+
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--bg-card);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid var(--beige-muted);
+            margin-bottom: 2rem;
+        }
+
+        .rating-stars {
+            color: #E5A93C;
+            font-size: 1rem;
+        }
+
+        .rating-score {
+            font-weight: 700;
+            color: var(--espresso);
+            font-size: 0.95rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            padding: 2.2rem;
+            border-radius: 16px;
+            text-align: left;
+            border: 1px solid var(--beige-muted);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .review-quote {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--espresso);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-sage);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .author-info .name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--espresso);
+        }
+
+        .author-info .source {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Find Us & Location Section */
+        .location-section {
+            padding: 7rem 0;
+            background-color: var(--bg-cream);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 850px) {
+            .location-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .location-info {
+            padding-right: 2rem;
+        }
+
+        .location-title {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            color: var(--espresso);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-block {
+            margin-bottom: 1.8rem;
+        }
+
+        .info-block-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--olive-deep);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-block-val {
+            font-size: 1.05rem;
+            color: var(--espresso);
+            line-height: 1.6;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 420px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--beige-muted);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Instagram Section */
+        .instagram-section {
+            padding: 5rem 0;
+            background-color: var(--beige-light);
+            text-align: center;
+        }
+
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 850px) {
+            .insta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .insta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .insta-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+        }
+
+        .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .insta-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Call To Action Banner */
+        .cta-banner {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, rgba(41, 37, 31, 0.75) 0%, rgba(41, 37, 31, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .cta-title {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .cta-sub {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--espresso);
+            color: rgba(250, 247, 242, 0.7);
+            padding: 4rem 0 2rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-light);
+            letter-spacing: 0.15em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Modal for Menu */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(41, 37, 31, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-sage);
+            color: var(--text-light);
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="brand-logo">
+                <span class="logo-main">Petals</span>
+                <span class="logo-sub">Cafe & Bistro</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#story">Story</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#gallery">Space</a></li>
+                <li><a href="#location">Find Us</a></li>
+                <li><a href="#location" class="btn-nav">Directions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-up">
+            <span class="hero-title-sub">Welcome To</span>
+            <h1 class="hero-title-main">PETALS</h1>
+            <p class="hero-tagline">A little place to slow down.</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">View Menu</a>
+                <a href="#location" class="btn btn-secondary">Find Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story" id="story">
+        <div class="container">
+            <div class="story-header fade-up">
+                <span class="section-tag">More Than Just Coffee</span>
+                <h2 class="serif-title story-title">A quiet sanctuary in the heart of the city</h2>
+                <p class="story-desc">Designed for slow mornings, thoughtful conversations, and nourishing botanical-inspired comfort food.</p>
+            </div>
+
+            <div class="story-grid">
+                <div class="story-card fade-up">
+                    <div class="story-card-icon">🌿</div>
+                    <h3 class="story-card-title">Good Food</h3>
+                    <p class="story-card-text">Artisanal sourdoughs, vibrant salads, rich egg sandos, and wholesome breakfast plates crafted daily.</p>
+                </div>
+                <div class="story-card fade-up" style="transition-delay: 0.1s;">
+                    <div class="story-card-icon">☕</div>
+                    <h3 class="story-card-title">Good Coffee</h3>
+                    <p class="story-card-text">Specialty cold brews, velvety salted cream coffees, and iconic layered strawberry matcha lattes.</p>
+                </div>
+                <div class="story-card fade-up" style="transition-delay: 0.2s;">
+                    <div class="story-card-icon">✨</div>
+                    <h3 class="story-card-title">Good Moments</h3>
+                    <p class="story-card-text">Sunlit garden corners, rustic wooden tables, and an atmosphere that invites you to stay a while.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights / Signatures -->
+    <section class="signatures">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">House Favorites</span>
+                <h2 class="serif-title section-header-title">Petals Signatures</h2>
+            </div>
+
+            <div class="sig-grid">
+                <!-- Card 1 -->
+                <div class="sig-card fade-up">
+                    <div class="sig-img-wrap">
+                        <span class="sig-badge">Popular</span>
+                        <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=800&auto=format&fit=crop" alt="Iced Strawberry Matcha" class="sig-img">
+                    </div>
+                    <div class="sig-body">
+                        <div class="sig-top">
+                            <h3 class="sig-name">Iced Strawberry Matcha</h3>
+                            <span class="sig-price">NPR 450</span>
+                        </div>
+                        <p class="sig-desc">House-made organic strawberry compote layered with ceremonial grade matcha and cold fresh milk.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="sig-card fade-up" style="transition-delay: 0.1s;">
+                    <div class="sig-img-wrap">
+                        <span class="sig-badge">Chef Choice</span>
+                        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=800&auto=format&fit=crop" alt="Full Bloom Breakfast" class="sig-img">
+                    </div>
+                    <div class="sig-body">
+                        <div class="sig-top">
+                            <h3 class="sig-name">Full Bloom Breakfast</h3>
+                            <span class="sig-price">NPR 1,300</span>
+                        </div>
+                        <p class="sig-desc">Eggs of choice, grilled chicken sausage, mushrooms, herb-roasted tomatoes, hash brown & sourdough.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="sig-card fade-up" style="transition-delay: 0.2s;">
+                    <div class="sig-img-wrap">
+                        <span class="sig-badge">Classic</span>
+                        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=800&auto=format&fit=crop" alt="Salted Cream Coffee" class="sig-img">
+                    </div>
+                    <div class="sig-body">
+                        <div class="sig-top">
+                            <h3 class="sig-name">Salted Cream Coffee</h3>
+                            <span class="sig-price">NPR 380</span>
+                        </div>
+                        <p class="sig-desc">Slow-steeped espresso topped with rich, hand-whipped sea salt foam cream layer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">Taste The Season</span>
+                <h2 class="serif-title section-header-title">Our Menu</h2>
+            </div>
+
+            <!-- Tab Filtering -->
+            <div class="menu-tabs fade-up">
+                <button class="tab-btn active" onclick="switchTab('all')">All Items</button>
+                <button class="tab-btn" onclick="switchTab('breakfast')">Breakfast</button>
+                <button class="tab-btn" onclick="switchTab('sandwiches')">Sandwiches & Salads</button>
+                <button class="tab-btn" onclick="switchTab('mains')">Burgers & Mains</button>
+                <button class="tab-btn" onclick="switchTab('drinks')">Signature Drinks</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="menu-grid fade-up" id="menu-container">
+                <!-- Menu Items injected via JavaScript -->
+            </div>
+
+            <div class="menu-footer fade-up">
+                <button class="btn btn-secondary" onclick="openMenuModal()">View Full Printed Menu</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / The Space -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">Atmosphere</span>
+                <h2 class="serif-title section-header-title">The Petals Experience</h2>
+            </div>
+
+            <div class="gallery-masonry fade-up">
+                <div class="gallery-item tall">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop" alt="Cafe Interior" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-label">The Interior</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=800&auto=format&fit=crop" alt="Coffee Counter" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-label">The Brew Bar</span></div>
+                </div>
+                <div class="gallery-item tall">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop" alt="Matcha Drink" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-label">Iced Strawberry Matcha</span></div>
+                </div>
+                <div class="gallery-item wide">
+                    <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1200&auto=format&fit=crop" alt="Garden Seating" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-label">Outdoor Garden Corner</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" alt="Artisan Coffee" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-label">Morning Latte</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Reviews -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="rating-badge fade-up">
+                <span class="rating-stars">★★★★★</span>
+                <span class="rating-score">4.8 / 5.0 on Google Reviews</span>
+            </div>
+            
+            <h2 class="serif-title section-header-title fade-up">Loved By Our Guests</h2>
+
+            <div class="reviews-grid">
+                <div class="review-card fade-up">
+                    <p class="review-quote">"Hands down the most serene cafe in Kathmandu. The strawberry matcha is incredible and the aesthetic feels straight out of a design magazine."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <div class="name">Srishti Shrestha</div>
+                            <div class="source">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card fade-up" style="transition-delay: 0.1s;">
+                    <p class="review-quote">"The avocado toast and egg salad sandos are top notch. Super peaceful vibe, perfect place to catch up with friends or read a book."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <div class="name">Aarav K.</div>
+                            <div class="source">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card fade-up" style="transition-delay: 0.2s;">
+                    <p class="review-quote">"Salted cream coffee is a must try! Beautiful sage green ambience, helpful staff, and consistent quality every single visit."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">P</div>
+                        <div class="author-info">
+                            <div class="name">Prashant Gurung</div>
+                            <div class="source">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Find Us / Location -->
+    <section class="location-section" id="location">
+        <div class="container">
+            <div class="location-grid">
+                <div class="location-info fade-up">
+                    <span class="section-tag">Visit Petals</span>
+                    <h2 class="serif-title location-title">Find Your Way Here</h2>
+
+                    <div class="info-block">
+                        <div class="info-block-label">Address</div>
+                        <div class="info-block-val">Keshar Mahal / Tridevi Marg Area<br>Kathmandu, Nepal</div>
+                    </div>
+
+                    <div class="info-block">
+                        <div class="info-block-label">Opening Hours</div>
+                        <div class="info-block-val">Monday – Sunday<br>9:00 AM – 10:00 PM</div>
+                    </div>
+
+                    <div class="info-block">
+                        <div class="info-block-label">Contact</div>
+                        <div class="info-block-val">+977 1-4200000<br>hello@petalscafe.com</div>
+                    </div>
+
+                    <a href="https://maps.app.goo.gl/5dS7r75nWaM4x2BF6" target="_blank" class="btn btn-primary" style="margin-top: 1rem;">Get Directions on Google Maps</a>
+                </div>
+
+                <div class="map-container fade-up">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.0621379123!2d85.3132963!3d27.7147648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1900130e69bd%3A0xb3bd88a10b42f65f!2sPetals%20Cafe!5e0!3m2!1sen!2snp!4v1700000000000!5m2!1sen!2snp" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Grid -->
+    <section class="instagram-section">
+        <div class="container">
+            <span class="section-tag">Social Moments</span>
+            <h2 class="serif-title section-header-title fade-up">Follow @PetalsCafe</h2>
+            
+            <div class="insta-grid fade-up">
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=400&auto=format&fit=crop" alt="Insta 1"></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=400&auto=format&fit=crop" alt="Insta 2"></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1497636577773-f1231844b336?q=80&w=400&auto=format&fit=crop" alt="Insta 3"></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=400&auto=format&fit=crop" alt="Insta 4"></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=400&auto=format&fit=crop" alt="Insta 5"></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=400&auto=format&fit=crop" alt="Insta 6"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-banner">
+        <div class="container fade-up">
+            <h2 class="serif-title cta-title">Come By. Stay A While.</h2>
+            <p class="cta-sub">Your table in the garden is waiting.</p>
+            <a href="https://maps.app.goo.gl/5dS7r75nWaM4x2BF6" target="_blank" class="btn btn-primary">Find Petals Cafe</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo">PETALS CAFE</div>
+                <ul class="footer-links">
+                    <li><a href="#story">Our Story</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#gallery">Space</a></li>
+                    <li><a href="#location">Directions</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Petals Cafe & Bistro. All rights reserved.</div>
+                <div>Kathmandu, Nepal</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Full Menu Modal -->
+    <div class="modal" id="menuModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeMenuModal()">&times;</button>
+            <span class="section-tag">Complete Selection</span>
+            <h2 class="serif-title" style="margin-bottom: 2rem; color: #FFFFFF;">Petals Cafe Printed Menu</h2>
+            <div id="modal-menu-list">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Exact Menu Data from screenshot
+        const menuData = [
+            // Breakfast
+            { name: "Full Bloom Breakfast", price: "1300", desc: "Two eggs, grilled chicken sausage, herb-roasted tomatoes, hash brown, mushrooms with toast and choice of juice or coffee.", cat: "breakfast" },
+            { name: "Big Breakfast", price: "700", desc: "Two eggs, hash brown, chicken or pork sausage, baked beans, tomato with toast.", cat: "breakfast" },
+            { name: "Avocado on Toast", price: "550", desc: "Seasoned avocado spread on sourdough topped with a poached egg.", cat: "breakfast" },
+            { name: "Eggs Benedict", price: "660", desc: "Two poached eggs on sourdough with ham/bacon or spinach & hollandaise sauce.", cat: "breakfast" },
+            { name: "Omelette", price: "390", desc: "French omelette served with sourdough & butter.", cat: "breakfast" },
+            { name: "Breakfast Burrito", price: "600", desc: "Scrambled eggs, chicken sausage, cheese, beans & salsa.", cat: "breakfast" },
+            { name: "Scrambled Egg & Smoked Salmon Croissant", price: "750", desc: "Fresh croissant filled with fluffy scrambled eggs & smoked salmon.", cat: "breakfast" },
+
+            // Sandwiches & Salads
+            { name: "Egg Salad Sando", price: "400", desc: "Egg salad sandwich with Japanese mayonnaise.", cat: "sandwiches" },
+            { name: "Red Bell Pepper Pesto Sandwich", price: "520", desc: "Roasted bell peppers, pesto sauce with melted cheese on sourdough.", cat: "sandwiches" },
+            { name: "Chilli Oil Chicken Sandwich", price: "580", desc: "Shredded spiced chicken tossed in chili oil with garlic mayo.", cat: "sandwiches" },
+            { name: "Tuna Melt Sandwich", price: "520", desc: "Tuna salad, melted cheese, mayo & pickles on sourdough.", cat: "sandwiches" },
+            { name: "Quinoa Salad", price: "450", desc: "Fresh greens, quinoa, avocado, cucumbers & lemon vinaigrette.", cat: "sandwiches" },
+            { name: "Caesar Salad", price: "520", desc: "Crisp romaine, parmesan cheese, house-made croutons & Caesar dressing.", cat: "sandwiches" },
+
+            // Burgers & Mains
+            { name: "Crispy Mushroom Burger", price: "450", desc: "Crispy fried oyster mushroom patty with coleslaw and house sauce.", cat: "mains" },
+            { name: "Buff Gourmet Melt", price: "480", desc: "Spiced buff patty, caramelised onions, double cheese on toasted bun.", cat: "mains" },
+            { name: "Chicken Caesar Burger", price: "620", desc: "Grilled chicken breast, crispy lettuce & Caesar dressing.", cat: "mains" },
+            { name: "Sloppy Joe", price: "500", desc: "Minced beef in rich tomato sauce topped with melted cheese.", cat: "mains" },
+
+            // Drinks
+            { name: "Iced Strawberry Matcha", price: "450", desc: "House strawberry compote, cold milk & ceremonial matcha.", cat: "drinks" },
+            { name: "Salted Cream Coffee", price: "380", desc: "Cold brew topped with dense salted cream foam.", cat: "drinks" },
+            { name: "Cold Pressed Orange Juice", price: "350", desc: "100% fresh cold pressed oranges.", cat: "drinks" },
+            { name: "Iced Spanish Latte", price: "380", desc: "Espresso with condensed milk & fresh chilled milk.", cat: "drinks" }
+        ];
+
+        // Render Menu
+        function renderMenu(filter = 'all') {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? menuData : menuData.filter(item => item.cat === filter);
+
+            filtered.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'menu-item';
+                el.innerHTML = `
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">${item.name}</span>
+                        <span class="menu-item-price">NPR ${item.price}</span>
+                    </div>
+                    <p class="menu-item-desc">${item.desc}</p>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        // Tab Switching
+        function switchTab(category) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMenu(category);
+        }
+
+        // Modal Handlers
+        function openMenuModal() {
+            const list = document.getElementById('modal-menu-list');
+            list.innerHTML = '';
+            menuData.forEach(item => {
+                const el = document.createElement('div');
+                el.style.marginBottom = '1.2rem';
+                el.style.borderBottom = '1px dotted rgba(255,255,255,0.2)';
+                el.style.paddingBottom = '0.6rem';
+                el.innerHTML = `
+                    <div style="display:flex; justify-between; font-weight:600; font-size:1.1rem;">
+                        <span>${item.name}</span>
+                        <span>NPR ${item.price}</span>
+                    </div>
+                    <div style="font-size:0.85rem; opacity:0.8; font-weight:300;">${item.desc}</div>
+                `;
+                list.appendChild(el);
+            });
+            document.getElementById('menuModal').classList.add('active');
+        }
+
+        function closeMenuModal() {
+            document.getElementById('menuModal').classList.remove('active');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Intersection Observer for subtle animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu('all');
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
